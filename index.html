@@ -83,48 +83,50 @@
     </table>
 
     <!-- Firebase configuration and initialization -->
-    <script>
-        // Your web app's Firebase configuration
-        var firebaseConfig = {
-            apiKey: "AIzaSyDE7axj-wY3D-Hbka-_rdxcmFdeE6Qi5CM",
-            authDomain: "smart-parking-using-iot-8d52a.firebaseapp.com",
-            databaseURL: "smart-parking-using-iot-8d52a-default-rtdb.firebaseio.com",
-            projectId: "smart-parking-using-iot-8d52a",
-            storageBucket: "smart-parking-using-iot-8d52a.appspot.com",
-            messagingSenderId: "null",
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+ <!-- Firebase configuration and initialization -->
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyDE7axj-wY3D-Hbka-_rdxcmFdeE6Qi5CM",
+        authDomain: "smart-parking-using-iot-8d52a.firebaseapp.com",
+        databaseURL: "smart-parking-using-iot-8d52a-default-rtdb.firebaseio.com",
+        projectId: "smart-parking-using-iot-8d52a",
+        storageBucket: "smart-parking-using-iot-8d52a.appspot.com",
+        messagingSenderId: "null",
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
 
-        // Reference to your Firebase Realtime Database
-        var database = firebase.database();
+    // Reference to your Firebase Realtime Database
+    var database = firebase.database();
 
-        // Reference to the location of your data in the database
-        var parkingRef = database.ref('parking');
+    // Reference to the location of your data in the database
+    var parkingRef = database.ref('parking');
 
-        // Read data from the database
-        parkingRef.once('value')
-            .then(function(snapshot) {
-                var data = snapshot.val();
-                var dataTable = document.getElementById('data-body');
-                dataTable.innerHTML = ''; // Clear previous data
+    // Read data from the database
+    parkingRef.once('value')
+        .then(function(snapshot) {
+            var data = snapshot.val();
+            var dataTable = document.getElementById('data-body');
+            dataTable.innerHTML = ''; // Clear previous data
 
-                // Loop through each parking area
-                for (var area in data) {
-                    var availability = data[area];
-                    var status = availability === 4 ? 'Free' : 'Occupied';
-                    var row = `
-                        <tr>
-                            <td class="area-column">Parking Area ${area}</td>
-                            <td class="${status.toLowerCase()}">${status}</td>
-                        </tr>
-                    `;
-                    dataTable.innerHTML += row;
-                }
-            })
-            .catch(function(error) {
-                console.error('Error fetching data:', error);
-            });
-    </script>
+            // Loop through each parking area
+            for (var area in data) {
+                var availability = data[area];
+                var status = availability === 1 ? 'Free' : 'Occupied'; // Corrected interpretation
+                var row = `
+                    <tr>
+                        <td class="area-column">Parking Area ${area}</td>
+                        <td class="${status.toLowerCase()}">${status}</td>
+                    </tr>
+                `;
+                dataTable.innerHTML += row;
+            }
+        })
+        .catch(function(error) {
+            console.error('Error fetching data:', error);
+        });
+</script>
+
 </body>
 </html>
